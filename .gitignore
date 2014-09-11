@@ -1,0 +1,28 @@
+# SublimeText files
+*sublime-project
+*sublime-workspace
+.tags
+.tags_sorted_by_file
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore db
+config/database.yml
+
+# Vendor bundle directory
+/vendor/bundle
+
+# MacOSX
+.DS_Store
+.ruby-version
+
+# Custom env vars
+.env
+
+# Bower components
+/lib/assets/bower_components

@@ -5,7 +5,7 @@ angular.module('trash')
 
 		api.getAllUsers = function () {
 			var deferred = $q.defer();
-			$http.get('/api/v1/users/all').then(function (body) {
+			$http.get('/api/v1/participants/all').then(function (body) {
 				deferred.resolve(body.data);
 			}, function (reason) {
 				console.log(reason);
@@ -52,7 +52,7 @@ angular.module('trash')
 					search_term: search
 				}
 			};
-			$http.post('/api/v1/snaps/find_all_by_search_term', data).then(function (body) {
+			$http.post('/api/v1/contributions/find_all_by_search_term', data).then(function (body) {
 				console.log(body.data.center.lat);
 				console.log(body.data.center.lon);
 				map.center = { lat: body.data.center.lat, lng: body.data.center.lon, zoom: 10 };
@@ -66,7 +66,7 @@ angular.module('trash')
 
 		api.getPoints = function () {
 			var deferred = $q.defer();
-			$http.get('/api/v1/snaps/all').then(function (body) {
+			$http.get('/api/v1/contributions/all').then(function (body) {
 				angular.forEach(body.data, function(snap) {
 					var latitude = snap.location[0],
 						longitude = snap.location[1],

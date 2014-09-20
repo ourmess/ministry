@@ -15,13 +15,13 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
         search_term = search_data[:search_term]
         lat,lon = Geocoder.coordinates(search_term)
         #check to see if we got lat, lon
-        snaps = Contribution.geo_near([lat.to_f, lon.to_f]).execute["results"]
+        c = Contribution.geo_near([lat.to_f, lon.to_f]).execute["results"]
         {
           :center => {
             :lat => lat.to_f,
             :lon => lon.to_f
           },
-          :snaps => snaps
+          :snaps => c
         }
       end
     end

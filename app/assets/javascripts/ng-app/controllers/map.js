@@ -1,13 +1,13 @@
 angular.module('trash')
     .controller('MapCtrl', ['$scope', 'mapService', function ($scope, mapService) {
 
-        angular.extend($scope, homeService.initPoints() );
+        angular.extend($scope, mapService.initPoints() );
 
-        homeService.getPoints().then(function (data) {
+        mapService.getPoints().then(function (data) {
         	angular.extend($scope, data);
         });
 
-        homeService.getAllUsers().then(function (data) {
+        mapService.getAllUsers().then(function (data) {
         	$scope.users = data;
         });
 
@@ -27,7 +27,7 @@ angular.module('trash')
 
 		$scope.searchMap = function (search) {
 			console.log(search);
-			homeService.searchMap(search).then(function (data) {
+			mapService.searchMap(search).then(function (data) {
         		angular.extend($scope, data);
         	});
 		};

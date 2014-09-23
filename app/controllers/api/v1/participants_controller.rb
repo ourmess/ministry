@@ -2,12 +2,6 @@ class Api::V1::ParticipantsController < Api::V1::ApplicationController
   
   respond_to :json
   
-  def all
-    handle(200) do
-      Participant.all
-    end
-  end
-
   def create
     handle(201) do
       if params[:user_data]
@@ -28,6 +22,16 @@ class Api::V1::ParticipantsController < Api::V1::ApplicationController
         "{\"auth\":\"fail\"}"
       end
     end
+  end
+
+  def find_all
+    handle(200) do
+      Participant.all
+    end
+  end
+
+ private
+  def participant
   end
   
 end

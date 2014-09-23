@@ -6,4 +6,6 @@ class Contribution
   field :low_res_url, type: String
   field :keywords, type: Array
   field :location, type: Array
+
+  index({location: "2d"})
 end

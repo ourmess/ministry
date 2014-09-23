@@ -21,7 +21,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
             :lat => lat.to_f,
             :lon => lon.to_f
           },
-          :snaps => c
+          :markers => c
         }
       end
     end

@@ -6,7 +6,6 @@ gem 'rails', '4.1.5'
 gem 'puma'
 # Mongodb
 gem "mongoid", "~> 4.0.0"
-gem 'mongoid_geospatial', "~> 3.0.0"
 # reverse geocoding
 gem "geocoder"
 # Use SCSS for stylesheets

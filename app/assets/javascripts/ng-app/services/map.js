@@ -56,6 +56,7 @@ angular.module('trash')
 				console.log(body.data.center.lat);
 				console.log(body.data.center.lon);
 				map.center = { lat: body.data.center.lat, lng: body.data.center.lon, zoom: 10 };
+				map.markers = body.data.markers;
 				deferred.resolve(map);
 			}, function (reason) {
 				console.log(reason);
@@ -74,6 +75,7 @@ angular.module('trash')
 						full_res_url = snap.full_res_url;
 					map.layers.overlays.heatmap.data.push( [latitude, longitude, 0.5] );
 					//map.layers.overlays.waste.data.push( [lat, lon, 0.4] );
+					map.markers = [];
 					map.markers.push(
 						{
 							image: full_res_url,

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'application#index'
 
+  resources :contributions
+  resources :participants
+
   namespace :api do
     namespace :v1 do
       resources :participants do
@@ -11,7 +14,7 @@ Rails.application.routes.draw do
       end
       resources :contributions do
         collection do
-          post :create
+          post :create_asset
           post :destroy
           get :find_all
           post :find_all_by_search_term

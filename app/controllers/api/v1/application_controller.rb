@@ -21,9 +21,9 @@ class Api::V1::ApplicationController < ActionController::Base
       puts "Failed handle_basic"
     end
   end
-  
+
   def determine_format
     request.format = :json if (request.format == 'application/vnd.ourmess.ministry+json')
   end
-  
+
 end

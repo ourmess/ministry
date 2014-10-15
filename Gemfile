@@ -29,3 +29,5 @@ gem 'sidekiq'
 # client side angular goodies
 gem 'bower-rails'
 gem 'angular-rails-templates'
+
+gem 'httparty'

@@ -1,11 +1,32 @@
 class Api::V1::ContributionsController < Api::V1::ApplicationController
-  
+
   respond_to :json
-  
-  def create
+
+  def create_asset
     handle(201) do
-      if params[:contribution_data]
-        Contribution.create( contribution(params[:contribution_data]) )
+      if params[:data]
+
+        fs = Esri::FeatureService.new( params[:data][:feature_service_url] )
+        puts fs.coordinate_system
+
+        add = [
+          {
+            geometry: {
+              x: params[:data][:lon],
+              y: params[:data][:lat]
+            },
+
+            attributes: {
+              DESCRIPTION: "desc",
+              LOCATION: "location",
+              NAME: "name",
+            }
+          }
+        ]
+
+        fs.apply_edits(adds)
+
+        Contribution.create( contribution(params[:data]) )
       end
     end
   end
@@ -13,7 +34,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
   def destroy
     handle(201) do
     end
-  end 
+  end
 
   def find_all
     handle(200) do
@@ -47,6 +68,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
       :category_name => data[:category_name],
       :full_res_url => data[:full_res_url],
       :low_res_url => data[:low_res_url],
+      :feature_server_url => data[:feature_server_url],
       :keywords => [
         'trash'
       ],
@@ -55,5 +77,5 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
         data[:lon]#-118.243685
       ]
     }
-  end  
+  end
 end

@@ -12,9 +12,9 @@ server component of trash locator app
 #curl -X POST http://54.166.205.176:3000/api/v1/contributions/create -d '{"participant_id":"1","category_name":"cat","full_res_url":"blah.jpg","lat":"34.052240","lon":"-118.243690"}' -H "Content-Type: application/json"
 
 
-cd /home/ubuntu/app && git clone https://github.com/advectus/ministry.git
-cd /home/ubuntu/app/ministry && npm install bower
-cd /home/ubuntu/app/ministry && bundle install
-cd /home/ubuntu/app/ministry && rake bower:install
-cd /home/ubuntu/app/ministry && rake db:drop
-cd /home/ubuntu/app/ministry && rake db:mongoid:create_indexes
+cd /home/ubuntu/app && git clone https://github.com/advectus/ministry.git  
+cd /home/ubuntu/app/ministry && npm install bower  
+cd /home/ubuntu/app/ministry && bundle install  
+cd /home/ubuntu/app/ministry && rake bower:install  
+cd /home/ubuntu/app/ministry && rake db:drop  
+cd /home/ubuntu/app/ministry && rake db:mongoid:create_indexes  

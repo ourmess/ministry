@@ -1,3 +1,5 @@
+require 'json'
+
 class Api::V1::ContributionsController < Api::V1::ApplicationController
 
   respond_to :json
@@ -5,15 +7,17 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
   def create_asset
     handle(201) do
       if params[:data]
+      
+        payload = JSON.parse( params[:data] )
 
-        fs = Esri::FeatureService.new( params[:data][:feature_service_url] )
-        puts fs.coordinate_system
-
-        add = [
+        fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        puts "fs.coordinate_system", fs.coordinate_system
+        
+        adds = [
           {
             geometry: {
-              x: params[:data][:lon],
-              y: params[:data][:lat]
+              x: payload["lon"].to_f,
+              y: payload["lat"].to_f
             },
 
             attributes: {
@@ -26,7 +30,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
 
         fs.apply_edits(adds)
 
-        Contribution.create( contribution(params[:data]) )
+        Contribution.create( contribution(payload) )
       end
     end
   end
@@ -64,17 +68,17 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
  private
   def contribution(data)
     {
-      :participant_id => data[:participant_id],
-      :category_name => data[:category_name],
-      :full_res_url => data[:full_res_url],
-      :low_res_url => data[:low_res_url],
-      :feature_server_url => data[:feature_server_url],
+      :participant_id => data["participant_id"],
+      :category_name => data["category_name"],
+      :full_res_url => data["full_res_url"],
+      :low_res_url => data["low_res_url"],
+      :feature_server_url => data["feature_server_url"],
       :keywords => [
         'trash'
       ],
       :location => [
-        data[:lat],#34.052234,
-        data[:lon]#-118.243685
+        data["lat"].to_f,#34.052234,
+        data["lon"].to_f#-118.243685
       ]
     }
   end

@@ -4,7 +4,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
 
   respond_to :json
 
-  def create_asset
+  def create_sso
     handle(201) do
       if params[:data]
       
@@ -21,9 +21,23 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
             },
 
             attributes: {
-              DESCRIPTION: "desc",
-              LOCATION: "location",
-              NAME: "name",
+              region: "region",
+              agency: "agency",
+              collection_sys: "collection_sys",
+              sso_event_id: "sso_event_id",
+              start_dt: "start_dt",
+              spill_address: "server spill_address",
+              spill_city: "server spill_city",
+              spill_zip: "server spill_zip",
+              county: "county?",
+              spill_type: "custom spill_type", #Category 1, Category 2, Category 3
+              responsible_party: "responsible_party",
+              spill_poc_name: "spill_poc_name",
+              lattitude_decimal_degrees: payload["lat"],
+              longitude_decimal_degrees: payload["lon"],
+              spill_vol: payload["spill_vol_reach_surf"],
+              spill_vol_reach_surf: payload["spill_vol_reach_surf"],
+              spill_vol_recover: payload["spill_vol_recover"]
             }
           }
         ]

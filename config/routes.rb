@@ -14,7 +14,8 @@ Rails.application.routes.draw do
       end
       resources :contributions do
         collection do
-          post :create_asset
+          post :create_sso
+          post :create_cleaning_record
           post :destroy
           get :find_all
           post :find_all_by_search_term

@@ -21,6 +21,11 @@ Rails.application.routes.draw do
           post :find_all_by_search_term
         end
       end
+      resources :assets do
+        collection do
+          post :find_all_by_coordinates
+        end
+      end
     end
   end
 

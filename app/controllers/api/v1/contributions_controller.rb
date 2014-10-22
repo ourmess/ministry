@@ -30,7 +30,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               spill_city: "server spill_city",
               spill_zip: "server spill_zip",
               county: "county?",
-              spill_type: "custom spill_type", #Category 1, Category 2, Category 3
+              spill_type: "Category 3", #Category 1, Category 2, Category 3
               responsible_party: "responsible_party",
               spill_poc_name: "spill_poc_name",
               lattitude_decimal_degrees: payload["lat"],

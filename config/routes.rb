@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :assets do
         collection do
           post :find_all_by_coordinates
+          post :find_object_id_by_psr
         end
       end
     end

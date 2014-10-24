@@ -48,6 +48,29 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
       end
     end
   end
+  
+  def create_cleaning_record
+    handle(201) do
+      if params[:data]
+      
+        payload = JSON.parse( params[:data] )
+
+        fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        puts "fs.coordinate_system", fs.coordinate_system
+        
+        updates = [
+          {
+            attributes: {
+              OBJECTID: payload["object_id"],
+              cleaned_2014: payload["cleaned_2014"]
+            }
+          }
+        ]
+
+        fs.apply_edits([],updates)
+      end
+    end
+  end
 
   def destroy
     handle(201) do

@@ -1,4 +1,5 @@
 require 'httparty'
+require 'json'
 
 module Esri
   class FeatureService
@@ -13,6 +14,13 @@ module Esri
   	  @coordinate_system ||= JSON.parse( self.class.get("#{@path}?f=pjson").body )["extent"]
   	  #@coordinate_system["spatialReference"]["wkid"]
   	end
+
+	
+    def query(psr)
+      #q = {:psr => "3783", :returnGeometry => "true", :returnIdsOnly => "true", :f => "pjson"}
+      #JSON.parse( self.class.get("#{@path}/query", :query => q).response.body )
+      JSON.parse( self.class.get("#{@path}/query?where=psr+%3D+#{psr}&returnGeometry=true&returnIdsOnly=true&f=pjson").response.body )
+    end
 
   	def apply_edits(adds=[], updates=[], deletes=[])
   	  options = { body: { f: 'json', rollbackOnFailure: 'true' } }

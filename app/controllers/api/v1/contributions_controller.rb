@@ -68,6 +68,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
         ]
 
         fs.apply_edits([],updates)
+        updates
       end
     end
   end

@@ -21,26 +21,28 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
             },
 
             attributes: {
-              region: "region",
-              agency: "agency",
-              collection_sys: "collection_sys",
-              sso_event_id: "sso_event_id",
-              start_dt: "start_dt",
-              spill_address: "server spill_address",
-              spill_city: "server spill_city",
-              spill_zip: "server spill_zip",
-              county: "county?",
-              spill_type: "Category 3", #Category 1, Category 2, Category 3
-              responsible_party: "responsible_party",
-              spill_poc_name: "spill_poc_name",
-              lattitude_decimal_degrees: payload["lat"],
-              longitude_decimal_degrees: payload["lon"],
-              spill_vol: payload["spill_vol_reach_surf"],
+              lattitude_decimal_degrees: payload["lon"].to_f,
+              longitude_decimal_degrees: payload["lat"].to_f,
+              spill_type: "Category 3",
+              region: payload["region"].to_i,
+              #agency: payload["agency"],
+              #collection_sys: payload["collection_sys"],
+              #sso_event_id: payload["sso_event_id"],
+              #start_dt: payload["start_dt"],
+              #spill_address: payload["spill_address"],
+              #spill_city: payload["spill_city"],
+              #spill_zip: payload["spill_zip"].to_i,
+              #county: payload["county"],
+              #responsible_party: payload["responsible_party"],
+              spill_poc_name: payload["spill_poc_name"],
+              spill_vol: payload["spill_vol"],
               spill_vol_reach_surf: payload["spill_vol_reach_surf"],
               spill_vol_recover: payload["spill_vol_recover"]
             }
           }
         ]
+        
+        puts adds
 
         fs.apply_edits(adds)
 
@@ -62,7 +64,13 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
           {
             attributes: {
               OBJECTID: payload["object_id"],
-              cleaned_2014: payload["cleaned_2014"]
+              clean_flush: payload["clean_flush"],
+              cleaning_area: payload["cleaning_area"].to_i,
+              cleaning_crew_1: payload["cleaning_crew_1"],
+              cleaning_crew_2: payload["cleaning_crew_2"],
+              vehicle_number: payload["vehicle_number"],
+              hours: payload["hours"],
+              comments: payload["comments"]
             }
           }
         ]

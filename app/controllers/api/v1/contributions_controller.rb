@@ -70,6 +70,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               cleaning_crew_2: payload["cleaning_crew_2"],
               vehicle_number: payload["vehicle_number"],
               hours: payload["hours"],
+              date: payload["date"],
               comments: payload["comments"]
             }
           }

@@ -1,0 +1,17 @@
+<p class="bg-info"></p>
+
+<div class="center-block">
+  <h3>Waste. Find problems in your area.</h3>
+  <input class="form-control" type="text" placeholder="Beijing, China" ng-model = "search" ng-click ="searchMap(search)">
+  <button type="button" ng-click="searchMap(search)" class="btn btn-default btn-sm">Search</button>
+</div>
+
+<div class="row" style="max-width:780px;" ng-repeat="branches in unlocked_branches">
+  <div class="col-xs-6 col-sm-3">{{branches}}</div>
+</div>
+
+<leaflet width="100%" height="500px" markers="markers" center="center" layers="layers"></leaflet>
+
+<ul ng-repeat="marker in map.markers">
+  <li>{{marker}}</li>
+</ul>

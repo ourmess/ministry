@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Rai</title>
+  <title>Ourmess.org</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link href='assets/leaflet/dist/leaflet.css' rel='stylesheet' />
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script src="assets/leaflet/dist/leaflet.js"></script>
+  <script src="assets/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+  <script src="assets/webgl-heatmap-leaflet/js/webgl-heatmap.js"></script>
+  <script src="assets/webgl-heatmap-leaflet/js/webgl-heatmap-leaflet.js"></script>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
+<div ng-app="trash">
+
 <%= yield %>
+
+</div>
 
 </body>
 </html>

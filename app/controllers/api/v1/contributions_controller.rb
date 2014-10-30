@@ -11,7 +11,9 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
         payload = JSON.parse( params[:data] )
 
         fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        gl = Asset.reverse_geo_locate( payload["lat"], payload["lon"] )
         puts "fs.coordinate_system", fs.coordinate_system
+        puts "reverse geolocate", gl
         
         adds = [
           {
@@ -29,10 +31,10 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               #collection_sys: payload["collection_sys"],
               #sso_event_id: payload["sso_event_id"],
               #start_dt: payload["start_dt"],
-              #spill_address: payload["spill_address"],
-              #spill_city: payload["spill_city"],
-              #spill_zip: payload["spill_zip"].to_i,
-              #county: payload["county"],
+              spill_address: gl["address"],
+              spill_city: gl["city"],
+              spill_zip: gl["zip"].to_i,
+              county: gl["county"],
               #responsible_party: payload["responsible_party"],
               spill_poc_name: payload["spill_poc_name"],
               spill_vol: payload["spill_vol"],

@@ -3,7 +3,7 @@ class Asset
   field :name, type: String
   field :type_id, type: Integer
 
-  def reverse_geo_locate(lat,lon)
+  def self.reverse_geo_locate(lat,lon)
   	gc = Geocoder.search("#{lat},#{lon}").first
   	{
   	  "address" => "#{gc.street_address}",

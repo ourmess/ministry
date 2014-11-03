@@ -15,6 +15,8 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
         puts "fs.coordinate_system", fs.coordinate_system
         puts "reverse geolocate", gl
         
+        spill_type = payload["spill_type"] || "Category 1"
+        
         adds = [
           {
             geometry: {
@@ -25,7 +27,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
             attributes: {
               lattitude_decimal_degrees: payload["lon"].to_f,
               longitude_decimal_degrees: payload["lat"].to_f,
-              spill_type: payload["spill_type"],
+              spill_type: "#{spill_type}",
               region: payload["region"].to_i,
               agency: payload["agency"],
               #collection_sys: payload["collection_sys"],

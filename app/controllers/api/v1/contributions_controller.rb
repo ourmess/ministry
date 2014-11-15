@@ -9,24 +9,27 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
       if params[:data]
       
         payload = JSON.parse( params[:data] )
-
-        fs = Esri::FeatureService.new( payload["feature_service_url"] )
-        gl = Asset.reverse_geo_locate( payload["lat"], payload["lon"] )
-        puts "fs.coordinate_system", fs.coordinate_system
-        puts "reverse geolocate", gl
         
         spill_type = payload["spill_type"] || "Category 1"
+        lat = payload["lat"].to_f
+        lon = payload["lon"].to_f
+
+        fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        gl = Asset.reverse_geo_locate( lat.to_s, lon.to_s )
+        puts "fs.coordinate_system", fs.coordinate_system
+        puts "reverse geolocate", gl
+
         
         adds = [
           {
             geometry: {
-              x: payload["lon"].to_f,
-              y: payload["lat"].to_f
+              x: lon,
+              y: lat
             },
 
             attributes: {
-              lattitude_decimal_degrees: payload["lon"].to_f,
-              longitude_decimal_degrees: payload["lat"].to_f,
+              lattitude_decimal_degrees: lon,
+              longitude_decimal_degrees: lat,
               spill_type: "#{spill_type}",
               region: payload["region"].to_i,
               agency: payload["agency"],
@@ -70,8 +73,9 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               OBJECTID: payload["object_id"],
               clean_flush: payload["clean_flush"],
               cleaning_area: payload["cleaning_area"].to_i,
-              cleaning_crew_1: payload["cleaning_crew_1"],
-              cleaning_crew_2: payload["cleaning_crew_2"],
+              cleaning_crew: payload["cleaning_crew"],
+              cleaning_priority: payload["cleaning_priority"],
+              follow_up: "90 day",
               vehicle_number: payload["vehicle_number"],
               hours: payload["hours"],
               date: payload["date"],

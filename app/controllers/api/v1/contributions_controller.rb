@@ -78,7 +78,7 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               follow_up: "90 day",
               vehicle_number: payload["vehicle_number"],
               hours: payload["hours"],
-              date: payload["date"],
+              date_: payload["date"],
               comments: payload["comments"]
             }
           }

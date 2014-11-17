@@ -9,31 +9,38 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
       if params[:data]
       
         payload = JSON.parse( params[:data] )
+        
+        spill_type = payload["spill_type"] || "Category 1"
+        lat = payload["lat"].to_f
+        lon = payload["lon"].to_f
 
         fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        gl = Asset.reverse_geo_locate( lat.to_s, lon.to_s )
         puts "fs.coordinate_system", fs.coordinate_system
+        puts "reverse geolocate", gl
+
         
         adds = [
           {
             geometry: {
-              x: payload["lon"].to_f,
-              y: payload["lat"].to_f
+              x: lon,
+              y: lat
             },
 
             attributes: {
-              lattitude_decimal_degrees: payload["lon"].to_f,
-              longitude_decimal_degrees: payload["lat"].to_f,
-              spill_type: "Category 3",
+              lattitude_decimal_degrees: lon,
+              longitude_decimal_degrees: lat,
+              spill_type: "#{spill_type}",
               region: payload["region"].to_i,
-              #agency: payload["agency"],
+              agency: payload["agency"],
               #collection_sys: payload["collection_sys"],
-              #sso_event_id: payload["sso_event_id"],
-              #start_dt: payload["start_dt"],
-              #spill_address: payload["spill_address"],
-              #spill_city: payload["spill_city"],
-              #spill_zip: payload["spill_zip"].to_i,
-              #county: payload["county"],
-              #responsible_party: payload["responsible_party"],
+              sso_event_id: "#{Random.rand(2000)}",
+              start_dt: "#{Time.now.strftime("%m/%d/%Y %T")}",
+              spill_address: gl["address"],
+              spill_city: gl["city"],
+              spill_zip: gl["zip"].to_i,
+              county: gl["county"],
+              responsible_party: payload["responsible_party"],
               spill_poc_name: payload["spill_poc_name"],
               spill_vol: payload["spill_vol"],
               spill_vol_reach_surf: payload["spill_vol_reach_surf"],
@@ -66,11 +73,12 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
               OBJECTID: payload["object_id"],
               clean_flush: payload["clean_flush"],
               cleaning_area: payload["cleaning_area"].to_i,
-              cleaning_crew_1: payload["cleaning_crew_1"],
-              cleaning_crew_2: payload["cleaning_crew_2"],
+              cleaning_crew: payload["cleaning_crew"],
+              cleaning_priority: payload["cleaning_priority"],
+              follow_up: "90 day",
               vehicle_number: payload["vehicle_number"],
               hours: payload["hours"],
-              date: payload["date"],
+              date_: payload["date"],
               comments: payload["comments"]
             }
           }

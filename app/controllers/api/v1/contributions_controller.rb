@@ -90,6 +90,29 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
     end
   end
 
+  def create_manhole_water_level
+    handle(201) do
+      if params[:data]
+      
+        payload = JSON.parse( params[:data] )
+
+        fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        puts "fs.coordinate_system", fs.coordinate_system
+        
+        updates = [
+          {
+            attributes: {
+              OBJECTID: payload["object_id"],
+            }
+          }
+        ]
+
+        fs.apply_edits([],updates)
+        updates
+      end
+    end
+  end
+
   def destroy
     handle(201) do
     end

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         collection do
           post :find_all_by_coordinates
           post :find_object_id_by_psr
+          post :find_object_id_by_mh_id
         end
       end
     end

@@ -103,6 +103,10 @@ class Api::V1::ContributionsController < Api::V1::ApplicationController
           {
             attributes: {
               OBJECTID: payload["object_id"],
+              hadronex_id: payload["hadronex_id"],
+              hadronex_location: payload["hadronex_location"],
+              record_date: payload["record_date"],
+              inches_from_sensor: payload["inches_from_sensor"]
             }
           }
         ]

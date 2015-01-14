@@ -23,7 +23,26 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
         
         puts psr
         
-        fs.query(psr)["objectIds"]  
+        fs.query_by_psr(psr)["objectIds"]  
+      end
+    end
+
+  end
+
+  def find_object_id_by_mh_id
+
+    handle(201) do
+      if params[:data]
+        payload = JSON.parse( params[:data] )
+        
+        fs = Esri::FeatureService.new( payload["feature_service_url"] )
+        puts "fs.coordinate_system", fs.coordinate_system
+        
+        mh_id = payload["mh_id"]
+        
+        puts mh_id
+        
+        fs.query_by_mh_id(mh_id)["objectIds"]  
       end
     end
 

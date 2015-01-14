@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         collection do
           post :create_sso
           post :create_cleaning_record
+          post :create_manhole_water_level
           post :destroy
           get :find_all
           post :find_all_by_search_term
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
         collection do
           post :find_all_by_coordinates
           post :find_object_id_by_psr
+          post :find_object_id_by_mh_id
         end
       end
     end

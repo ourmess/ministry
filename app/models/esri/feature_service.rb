@@ -23,7 +23,7 @@ module Esri
 
     def query_by_mh_id(mh_id)
       #q = {:psr => "3783", :returnGeometry => "true", :returnIdsOnly => "true", :f => "pjson"}
-      JSON.parse( self.class.get("#{@path}/query?where=mh_id+%3D+#{mh_id}&returnGeometry=true&returnIdsOnly=true&f=pjson").response.body )
+      JSON.parse( self.class.get("#{@path}/query?where=mh_id+%3D+'#{mh_id}'&returnGeometry=true&returnIdsOnly=true&f=pjson").response.body )
     end
 
   	def apply_edits(adds=[], updates=[], deletes=[])

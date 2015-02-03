@@ -20,14 +20,19 @@ namespace :hadronex do
   	  if mh_id.size!=4
   	  	mh_id = row["Location"].split(" ")[1] + row["Location"].split(" ")[2]
   	  end
-  	  puts "Obtained mh_id: #{mh_id} from location string"
 
-      data[mh_id] = {
-      	:hadronex_id => row["Location ID"],
-      	:hadronex_location => row["Location"],
-      	:record_date => row["Date"],
-      	:inches_from_sensor => row["Inches From Sensor"]
-      }
+      #update manhole only if next record contains measurement less than the previous 
+      if data[mh_id]==nil || row["Inches From Sensor"].to_f<=data[mh_id][:inches_from_sensor].to_f
+        current = data[mh_id][:inches_from_sensor] rescue row["Inches From Sensor"]
+        puts "Updating mh_id: #{mh_id}  current:#{current}  next:#{row['Inches From Sensor']}"
+        data[mh_id] = {
+        	:hadronex_id => row["Location ID"],
+        	:hadronex_location => row["Location"],
+        	:record_date => row["Date"],
+        	:inches_from_sensor => row["Inches From Sensor"]
+        }
+      end
+
   	end
 
   	puts "Begin iterating #{data}"

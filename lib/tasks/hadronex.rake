@@ -13,6 +13,15 @@ namespace :hadronex do
   	next if not ENV['DATA']
   	puts "Parsing CSV #{ENV['DATA']}"
 
+    alarm_thresholds = {
+      "2970" =>  8.0,
+      "2973" =>  5.0,
+      "2984" => 5.0,
+      "3668" => 5.0,
+      "3673" => 10.0,
+      "6095" => 10.0
+    }
+
   	data = {}
   	CSV.foreach("#{Rails.root}/lib/tasks/data/#{ENV['DATA']}", :headers => true) do |row|
 
@@ -40,6 +49,12 @@ namespace :hadronex do
   	data.each_with_index do |(key, value),i|
   	  fs.query_by_mh_id(key)["objectIds"].each do |obj|
   	  	puts "Updating OBJECTID: #{obj}, mh_id: #{key}"
+
+        #identify if the lowest measurment is in alarm state
+        if alarm_thresholds[value[:hadronex_id]].to_f > value[:inches_from_sensor].to_f
+          alarm = true
+        end
+        
   	  	updates = [
   	  	  {
   	  	  	attributes: {

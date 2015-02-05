@@ -52,7 +52,9 @@ namespace :hadronex do
 
         #identify if the lowest measurment is in alarm state
         if alarm_thresholds[value[:hadronex_id]].to_f > value[:inches_from_sensor].to_f
-          alarm = true
+          alarm = "true"
+        else
+          alarm = "false"
         end
         
   	  	updates = [
@@ -62,7 +64,8 @@ namespace :hadronex do
   	  	  	  hadronex_id: value[:hadronex_id],
   	  	  	  hadronex_location: value[:hadronex_location],	
   	  	  	  record_date: value[:record_date],
-  	  	  	  inches_from_sensor: value[:inches_from_sensor]
+  	  	  	  inches_from_sensor: value[:inches_from_sensor],
+              alarm: alarm
   	  	  	}
   	  	  }
   	  	]
